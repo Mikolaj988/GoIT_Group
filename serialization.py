@@ -1,6 +1,6 @@
 import json
 from address_book_aleksandra import Record, Phone
-from notebook import Notepade, note
+from notebook import NoteCollection, Note
 
 
 # Kule dla wyciągania numerów z listy [...] w string.
@@ -42,9 +42,10 @@ def from_json_book(filename):
 def to_json_note(notepad, filename):
     data_to_write = [
         {
-            'title': title,
-            'text': note.text
-        } for title, note in notepad.items()
+            'tag': note.tag,
+            'note': note.note,
+            'tryger': list(note.tryger)
+        } for note in notepad.notes
     ]
     with open(filename, 'w') as data_file:
         json.dump(data_to_write, data_file, indent=2)
@@ -53,4 +54,11 @@ def to_json_note(notepad, filename):
 def from_json_note(filename):
     with open(filename, 'r') as data_file:
         data = json.load(data_file)
-        return {note['title']: note['text'] for note in data}
+        notes = []
+        for note_data in data:
+            note = Note(note_data['tag'], note_data['note'])
+            note.tryger = set(note_data['tryger'])
+            notes.append(note)
+        notepad = NoteCollection()
+        notepad.notes = notes
+        return notepad

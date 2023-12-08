@@ -32,7 +32,7 @@ def from_json_book(filename):
             record = Record(
                 name,
                 phone_string,
-                record_data.get('emaile'),
+                record_data.get('email'),
                 record_data.get('birthday'),
             )
             records[name] = record

@@ -1,27 +1,32 @@
 import json
-from classes import Record, Phone
-from notebook import NoteCollection, Note
+from notebook import Note, NoteCollection
+from classes import Record, AddressBook, Birthday
+from datetime import datetime
 
 
-# Kule dla wyciągania numerów z listy [...] w string.
 def extract_phone(phone_list):
-    return ', '.join(str(Phone(number)) for number in phone_list)
+    return ', '.join(phone_list)
 
 
-def to_json_book(address_book, filename):
-    data_to_write = {
+def format_birthday(birthday):
+    return str(birthday.value) if birthday else None
+
+
+def to_json_address_book(filename, address_book):
+    data = {
         name: {
-            'name': str(record.name),
-            'phone': list(map(str, record.phone)),
-            'email': str(record.birthday),
-            'birthday': str(record.birthday) if record.birthday else None
-        } for name, record in address_book.data.items()
+            'name': record.name.value,
+            'phone': [phone.value for phone in record.fields.get('phones', [])],
+            'email': [email.value for email in record.fields.get('emails', [])],
+            'birthday': format_birthday(record.fields.get('birthday', [None])[0]),
+        }
+        for name, record in address_book.data.items()
     }
     with open(filename, 'w') as data_file:
-        json.dump(data_to_write, data_file, indent=2)
+        json.dump(data, data_file, indent=2)
 
 
-def from_json_book(filename):
+def from_json_address_book(filename):
     with open(filename, 'r') as data_file:
         data = json.load(data_file)
         records = {}
@@ -29,36 +34,71 @@ def from_json_book(filename):
         for name, record_data in data.items():
             phone_list = record_data.get('phone', [])
             phone_string = extract_phone(phone_list)
+
+            email_list = record_data.get('email', [])
+            email_string = ', '.join(email_list)
+
+            birthday = record_data.get('birthday', None)
+
             record = Record(
                 name,
-                phone_string,
-                record_data.get('email'),
-                record_data.get('birthday'),
+                birthday,
             )
+
+            record.add_field("phones", phone_string)
+            record.add_field("emails", email_string)
+
             records[name] = record
-    return records
+
+        return AddressBook(records)
 
 
 def to_json_note(note, filename):
-    data_to_write = [
-        {
-            'tag': note.tag,
-            'note': note.note,
-            'tryger': list(note.tryger)
-        } for note in note.notes
-    ]
+    notepad_data = {
+        "notes": [
+            {
+                "title": note.title,
+                "text": note.text,
+                "tags": list(note.tags)
+            }
+            for note in note.notes
+        ]
+    }
     with open(filename, 'w') as data_file:
-        json.dump(data_to_write, data_file, indent=2)
+        json.dump(notepad_data, data_file, indent=2)
 
 
 def from_json_note(filename):
     with open(filename, 'r') as data_file:
         data = json.load(data_file)
         notes = []
-        for note_data in data:
-            note = Note(note_data['tag'], note_data['note'])
-            note.tryger = set(note_data['tryger'])
+        for note_data in data.get('notes', []):
+            note = Note(note_data.get('title', ''), note_data.get('text', ''))
+            note.tags = set(note_data.get('tags', []))
             notes.append(note)
-        notepad = NoteCollection()
-        notepad.notes = notes
-        return notepad
+        note = NoteCollection()
+        note.notes = notes
+        return note
+
+
+# Tworzenie książki adresowej i dodawanie rekordów
+address_book = AddressBook()
+record1 = Record("John Doe", "1990-01-01")
+record1.add_field("phones", "123456789")
+record1.add_field("phones", "987654321")
+record2 = Record("Jane Doe", "1995-02-15")
+record2.add_field("emails", "jane@example.com")
+
+address_book.add_record(record1)
+address_book.add_record(record2)
+
+# Zapis książki adresowej do pliku JSON
+to_json_address_book("Data.json", address_book)
+
+# Odczyt książki adresowej z pliku JSON
+loaded_address_book = from_json_address_book("Data.json")
+
+# Wyświetlenie wczytanej książki adresowej
+print(loaded_address_book)
+
+

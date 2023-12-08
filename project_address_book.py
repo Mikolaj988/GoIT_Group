@@ -1,5 +1,6 @@
 from collections import UserDict
 from datetime import datetime
+import re
 
 
 class Field:
@@ -35,7 +36,14 @@ class Phone(Field):
 
 
 class Email(Field):
-    pass
+    def __init__(self, value):
+        super().__init__(value)
+        self.validate_email()
+
+    def validate_email(self):
+        email_pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+        if not re.match(email_pattern, self.value):
+            raise ValueError("Invalid e-mail format")
 
 
 class Birthday(Field):
@@ -68,7 +76,10 @@ class Record:
     def add_field(self, field_type, value):
         if field_type in self.fields and field_type in self.FIELD_CLASSES:
             field_class = self.FIELD_CLASSES[field_type]
-            self.fields[field_type].append(field_class(value))
+            try:
+                self.fields[field_type].append(field_class(value))
+            except ValueError as e:
+                print(f"Error adding field: {field_type}: {e}")
 
     def remove_field(self, field_type, value):
         if field_type in self.fields:
@@ -86,7 +97,6 @@ class Record:
         if "birthday" in self.fields:
             today = datetime.now()
 
-            # Modyfikacja: Sprawdzamy typ daty urodzenia
             if isinstance(self.fields["birthday"][0].value, str):
                 birthday_date = datetime.strptime(
                     self.fields["birthday"][0].value, '%Y-%m-%d')

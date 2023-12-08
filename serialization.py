@@ -1,5 +1,5 @@
 import json
-from address_book_aleksandra import Record, Phone
+from classes import Record, Phone
 from notebook import NoteCollection, Note
 
 
@@ -13,7 +13,7 @@ def to_json_book(address_book, filename):
         name: {
             'name': str(record.name),
             'phone': list(map(str, record.phone)),
-            'emaile': str(record.birthday),
+            'email': str(record.birthday),
             'birthday': str(record.birthday) if record.birthday else None
         } for name, record in address_book.data.items()
     }
@@ -39,13 +39,13 @@ def from_json_book(filename):
     return records
 
 
-def to_json_note(notepad, filename):
+def to_json_note(note, filename):
     data_to_write = [
         {
             'tag': note.tag,
             'note': note.note,
             'tryger': list(note.tryger)
-        } for note in notepad.notes
+        } for note in note.notes
     ]
     with open(filename, 'w') as data_file:
         json.dump(data_to_write, data_file, indent=2)

@@ -35,11 +35,11 @@ class Phone(Field):
         # Sprawdzanie poprawności formatu numeru telefonu
         allowed_chars = set("0123456789+-()/. ")
         if not all(char in allowed_chars for char in self.value):
-            raise ValueError("Niepoprawny format numeru telefonu")
+            raise ValueError("Invalid phone number format")
 
         digits = [char for char in self.value if char.isdigit()]
         if len(digits) != 9:
-            raise ValueError("Numer telefonu musi mieć dokładnie 9 cyfr")
+            raise ValueError("Phone number must have exactly 9 digits")
 
 # Klasa dziedzicząca po Field, reprezentująca adres e-mail
 
@@ -53,7 +53,7 @@ class Email(Field):
         # Sprawdzanie poprawności formatu adresu e-mail
         email_pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
         if not re.match(email_pattern, self.value):
-            raise ValueError("Niepoprawny format adresu e-mail")
+            raise ValueError("Invalid e-mail format")
 
 # Klasa dziedzicząca po Field, reprezentująca datę urodzenia
 
@@ -68,7 +68,7 @@ class Birthday(Field):
         try:
             datetime.strptime(str(self.value), '%Y-%m-%d')
         except ValueError:
-            raise ValueError("Niepoprawny format daty urodzenia")
+            raise ValueError("Invalid birthday format")
 
 # Klasa reprezentująca pojedynczy rekord w książce adresowej
 
@@ -83,7 +83,7 @@ class Record:
 
     def __init__(self, name, birthday=None):
         if not name:
-            raise ValueError("Imię jest wymagane.")
+            raise ValueError("Name is required.")
         self.name = Name(name)
         self.fields = {"phones": [], "emails": [], "birthday": []}
         if birthday:
@@ -96,7 +96,7 @@ class Record:
             try:
                 self.fields[field_type].append(field_class(value))
             except ValueError as e:
-                print(f"Błąd dodawania pola: {field_type}: {e}")
+                print(f"Error adding field: {field_type}: {e}")
 
     def remove_field(self, field_type, value):
         # Usuwanie pola z rekordu

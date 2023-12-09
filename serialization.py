@@ -1,11 +1,6 @@
 import json
 from notebook import Note, NoteCollection
-from classes import Record, AddressBook, Birthday
-from datetime import datetime
-
-
-def extract_phone(phone_list):
-    return ', '.join(phone_list)
+from classes import Record, AddressBook
 
 
 def format_birthday(birthday):
@@ -32,11 +27,6 @@ def from_json_address_book(filename):
         records = {}
 
         for name, record_data in data.items():
-            phone_list = record_data.get('phone', [])
-            phone_string = extract_phone(phone_list)
-
-            email_list = record_data.get('email', [])
-            email_string = ', '.join(email_list)
 
             birthday = record_data.get('birthday', None)
 
@@ -45,8 +35,11 @@ def from_json_address_book(filename):
                 birthday,
             )
 
-            record.add_field("phones", phone_string)
-            record.add_field("emails", email_string)
+            for phone_number in record_data.get('phone', []):
+                record.add_field("phones", phone_number)
+
+            for email_address in record_data.get('email', []):
+                record.add_field("emails", email_address)
 
             records[name] = record
 
@@ -86,7 +79,7 @@ address_book = AddressBook()
 record1 = Record("John Doe", "1990-01-01")
 record1.add_field("phones", "123456789")
 record1.add_field("phones", "987654321")
-record2 = Record("Jane Doe", "1995-02-15")
+record2 = Record("Billy Bones", "1995-02-15")
 record2.add_field("emails", "jane@example.com")
 
 address_book.add_record(record1)
@@ -99,6 +92,11 @@ to_json_address_book("Data.json", address_book)
 loaded_address_book = from_json_address_book("Data.json")
 
 # Wyświetlenie wczytanej książki adresowej
-print(loaded_address_book)
+for name, record in loaded_address_book.data.items():
+    print(f"Name: {record.name.value}")
+    print(f"Phones: {', '.join(phone.value for phone in record.fields.get('phones', []))}")
+    print(f"Emails: {', '.join(email.value for email in record.fields.get('emails', []))}")
+    print(f"Birthday: {format_birthday(record.fields.get('birthday', [None])[0])}")
+    print("\n")
 
 

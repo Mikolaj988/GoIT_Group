@@ -1,0 +1,37 @@
+Instalacja i uzywanie pakietu CLI_AddressBook
+
+1. Wprowadzenie
+Ta instrukcja ma na celu pomoc uzytkownikowi w instalacji i korzystaniu z pakietu CLI_AddressBook. Pakiet CLI_AddressBook to zbior modulow, CLI ktory pozwala tworzyc i pszechowywac ksiege kontaktow a takze tworzyc i pszechowywac notatki.
+
+2. Istalacja pakietu
+- Przed instalacja pakietu upewnij sie ze masz zainstalowanego Pythona.
+
+- Otworz terminal lub wiersz polecen na swoim systemie operacyjnym.
+
+- Wpisz ponizsza komende i nacisnij Enter:
+"pip install CLI_AddressBook"
+
+- Po pomyslnej instalacji, aby uruchomic ksiazke adresowa, wpisz ponizsza komende i nacisnij Enter:
+"enter_AddressBook"
+To spowoduje uruchomienie interaktywnego interfejsu do zarzadzania ksiazka adresowa.
+
+- Lista komend do dyspozycji uzytkownika:
+  "help" - wywoluje liste komend. 
+  "hello" - wywoluje powitalny komunikat.
+  "add" - umozliwia dadanie kontaktu wedlug podanego schematu: nazwa kontaktu i mumer telefonu.
+  "change" - pozwala zmienic nazwe kontaktu i numer telefonu.
+  "phone" - pozwala na znalezienie nazwy kontaktu wedlug numeru telefonu.
+  "show all" - pokazuje wszystkie kontakty w ksiazce kontaktow.
+  "add_note" - pozwala dodac notatke.
+  "add_tag" - dodaje tag do wybranej notatki.
+  "find_note" - wyszukuje notatke za tytulem.
+  "find_by_tag" - wyszukuje notatke za tagiem.
+  "edit_note" - pozwala na redagowanie notatki.
+  "delete_note" - pozwala usunac notatke za tytulem.
+  "display_notes" - wyswietla notatke.
+  "sort_notes" - sortuje notatki za podanym tagiem.
+  "exit", "close" - zamyka ksiazke adresowa.
+
+3. Pomoc i Zasoby
+Jesli masz pytania dotyczace pakietu CLI_AddressBook lub potrzebujesz dodatkowej pomocy, skorzystaj z dokumentacji pakietu dostepnej na oficjalnej stronie internetowej projektu. Mozesz rowniez odwiedzic fora dyskusyjne i spolecznosc Pythona, aby uzyskac wsparcie od innych uzytkownikow.
+To podstawowy podrecznik uzytkownika, ktory powinien dostarczyc Ci informacji na temat instalacji i podstawowego uzywania pakietu CLI_AddressBook. W razie potrzeby, zawsze mozesz sprawdzic dokladna dokumentacje pakietu dla bardziej zaawansowanych opcji i funkcji.

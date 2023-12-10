@@ -128,6 +128,13 @@ class Record:
             days_left = (next_birthday - today).days
             return days_left if days_left > 0 else 365 + days_left
 
+    def __str__(self):
+        # Tworzenie ciągu znaków opisujących pola rekordu
+        fields_str = ", ".join(
+            f"{field}: {getattr(self.fields[field], 'value', '')}" for field in self.fields)
+        # Zwracanie sformatowanego ciągu znaków zawierających imię i pola
+        return f"Name: {self.name.value}, {fields_str}"
+
 # Klasa dziedzicząca po UserDict, reprezentująca książkę adresową
 
 

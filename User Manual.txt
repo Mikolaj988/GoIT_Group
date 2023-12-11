@@ -14,19 +14,19 @@ To spowoduje uruchomienie interaktywnego interfejsu do zarzadzania ksiazka adres
 5. Lista komend do dyspozycji uzytkownika:
 "help" - wywoluje liste komend, 
 "hello" - wywoluje powitalny komunikat,
-"add" - umozliwia dadanie kontaktu wedlug podanego schematu: nazwa kontaktu, numer telefonu, email, data urodzin,
-"change" - pozwala zmienic nazwe kontaktu, numer telefonu, email i date urodzin,
+"add" - dodaje kontakt wedlug podanego schematu: nazwa kontaktu, numer telefonu, email, data urodzin,
+"change" - zmienia nazwe kontaktu, numer telefonu, email i date urodzin,
 "show all" - wyswietla wszystkie kontakty w ksiazce kontaktow,
-"add_note" - pozwala dodac notatke,
+"delete_contact" - usuwa kontakt,
+"display_birthday" - wyswietla liste kontaktow, ktorych urodziny przypadaja za okreslona liczbe dni od biezacej daty,
+"add_note" - dodaje notatke,
 "add_tag" - dodaje tag do wybranej notatki,
-"find_note" - wyszukuje notatke za tytulem,
-"find_by_tag" - wyszukuje notatke za tagiem.
-"edit_note" - pozwala na redagowanie notatki.
-"delete_note" - pozwala usunac notatke za tytulem.
-"delete_contact" - usuniie kontaktu.
-"display_notes" - wyswietla notatke.
-"display_birthday" - wyswietlac liste kontaktow, ktorych urodziny przypadaja za okreslona liczbe dni od biezacej daty.
-"sort_notes" - sortuje notatki za podanym tagiem.
+"find_note" - wyszukuje notatke wedlug tytulu,
+"find_by_tag" - wyszukuje notatke wedlug znacznika,
+"edit_note" - edytuje notatki,
+"delete_note" - usuwa notatki wedug tytulu,
+"display_notes" - wyswietla notatke,
+"sort_notes" - sortuje notatki wedlug znacznika,
 "exit", "close" - zamyka ksiazke adresowa.
 
 3. Pomoc i Zasoby

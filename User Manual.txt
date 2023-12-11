@@ -1,9 +1,9 @@
-Instalacja i uzytkowanie pakietu CLI_AddressBook
+Instalacja i użytkowanie pakietu CLI_AddressBook
 
-1. Wprowadzenie
+I. Wprowadzenie
 Ta instrukcja ma na celu pomoc uzytkownikowi w instalacji i korzystaniu z pakietu CLI_AddressBook. Pakiet CLI_AddressBook to zbior modulow i CLI, ktory pozwala tworzyc i przechowywac ksiazke kontaktow, a takze tworzyc i przechowywac notatki.
 
-2. Instalacja pakietu
+II. Instalacja pakietu
 1. Przed instalacja pakietu upewnij sie ze masz zainstalowanego Pythona.
 2. Otworz terminal lub wiersz polecen na swoim systemie operacyjnym.
 3. Wpisz ponizsza komende i nacisnij Enter:
@@ -11,7 +11,9 @@ Ta instrukcja ma na celu pomoc uzytkownikowi w instalacji i korzystaniu z pakiet
 4. Po pomyslnej instalacji, aby uruchomic ksiazke adresowa, wpisz ponizsza komende i nacisnij Enter:
   "enter_addressbook"
 To spowoduje uruchomienie interaktywnego interfejsu do zarzadzania ksiazka adresowa.
-5. Lista komend do dyspozycji uzytkownika:
+
+III. Uzytkowanie pakietu
+Lista komend do dyspozycji uzytkownika:
 "help" - wywoluje liste komend, 
 "hello" - wywoluje powitalny komunikat,
 "add" - dodaje kontakt wedlug podanego schematu: nazwa kontaktu, numer telefonu, email, data urodzin,
@@ -29,6 +31,6 @@ To spowoduje uruchomienie interaktywnego interfejsu do zarzadzania ksiazka adres
 "sort_notes" - sortuje notatki wedlug znacznika,
 "exit", "close" - zamyka ksiazke adresowa.
 
-3. Pomoc i Zasoby
+IV. Pomoc i zasoby
 Jesli masz pytania dotyczace pakietu CLI_AddressBook lub potrzebujesz dodatkowej pomocy, skorzystaj z dokumentacji pakietu dostepnej na oficjalnej stronie internetowej projektu. Mozesz rowniez odwiedzic fora dyskusyjne i spolecznosc Pythona, aby uzyskac wsparcie od innych uzytkownikow.
 To podstawowy podrecznik uzytkownika, ktory powinien dostarczyc Ci informacji na temat instalacji i podstawowego uzywania pakietu CLI_AddressBook. W razie potrzeby, zawsze mozesz sprawdzic dokladna dokumentacje pakietu dla bardziej zaawansowanych opcji i funkcji.

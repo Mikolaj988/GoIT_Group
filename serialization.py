@@ -72,31 +72,4 @@ def from_json_note(filename):
         note = NoteCollection()
         note.notes = notes
         return note
-
-
-# Tworzenie książki adresowej i dodawanie rekordów
-address_book = AddressBook()
-record1 = Record("John Doe", "1990-01-01")
-record1.add_field("phones", "123456789")
-record1.add_field("phones", "987654321")
-record2 = Record("Billy Bones", "1995-02-15")
-record2.add_field("emails", "jane@example.com")
-
-address_book.add_record(record1)
-address_book.add_record(record2)
-
-# Zapis książki adresowej do pliku JSON
-to_json_address_book("Data.json", address_book)
-
-# Odczyt książki adresowej z pliku JSON
-loaded_address_book = from_json_address_book("Data.json")
-
-# Wyświetlenie wczytanej książki adresowej
-for name, record in loaded_address_book.data.items():
-    print(f"Name: {record.name.value}")
-    print(f"Phones: {', '.join(phone.value for phone in record.fields.get('phones', []))}")
-    print(f"Emails: {', '.join(email.value for email in record.fields.get('emails', []))}")
-    print(f"Birthday: {format_birthday(record.fields.get('birthday', [None])[0])}")
-    print("\n")
-
-
+        

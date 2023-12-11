@@ -1,36 +1,36 @@
 Instalacja i użytkowanie pakietu CLI_AddressBook
 
 I. Wprowadzenie
-Ta instrukcja ma na celu pomoc uzytkownikowi w instalacji i korzystaniu z pakietu CLI_AddressBook. Pakiet CLI_AddressBook to zbior modulow i CLI, ktory pozwala tworzyc i przechowywac ksiazke kontaktow, a takze tworzyc i przechowywac notatki.
+Ta instrukcja ma na celu pomóc użytkownikowi w instalacji i korzystaniu z pakietu CLI_AddressBook. Pakiet CLI_AddressBook to zbiór modułów i CLI, który pozwala tworzyć i przechowywać książkę kontaktów, a także tworzyć i przechowywać notatki.
 
 II. Instalacja pakietu
-1. Przed instalacja pakietu upewnij sie ze masz zainstalowanego Pythona.
-2. Otworz terminal lub wiersz polecen na swoim systemie operacyjnym.
-3. Wpisz ponizsza komende i nacisnij Enter:
+1. Przed instalacją pakietu upewnij się, że masz zainstalowanego Pythona.
+2. Otwórz terminal lub wiersz poleceń na swoim systemie operacyjnym.
+3. Wpisz poniższą komendę i naciśnij Enter:
   "pip install CLI_AddressBook"
-4. Po pomyslnej instalacji, aby uruchomic ksiazke adresowa, wpisz ponizsza komende i nacisnij Enter:
+4. Po pomyślnej instalacji, aby uruchomić książkę adresową, wpisz poniższą komendę i naciśnij Enter:
   "enter_addressbook"
-To spowoduje uruchomienie interaktywnego interfejsu do zarzadzania ksiazka adresowa.
+To spowoduje uruchomienie interaktywnego interfejsu do zarządzania książką adresową.
 
-III. Uzytkowanie pakietu
-Lista komend do dyspozycji uzytkownika:
-"help" - wywoluje liste komend, 
-"hello" - wywoluje powitalny komunikat,
-"add" - dodaje kontakt wedlug podanego schematu: nazwa kontaktu, numer telefonu, email, data urodzin,
-"change" - zmienia nazwe kontaktu, numer telefonu, email i date urodzin,
-"show all" - wyswietla wszystkie kontakty w ksiazce kontaktow,
+III. Użytkowanie pakietu
+Lista komend do dyspozycji użytkownika:
+"help" - wywołuje listę komend, 
+"hello" - wywołuje powitalny komunikat,
+"add" - dodaje kontakt według podanego schematu: nazwa kontaktu, numer telefonu, email, data urodzin,
+"change" - zmienia nazwę kontaktu, numer telefonu, email i datę urodzin,
+"show all" - wyświetla wszystkie kontakty w książce kontaktów,
 "delete_contact" - usuwa kontakt,
-"display_birthday" - wyswietla liste kontaktow, ktorych urodziny przypadaja za okreslona liczbe dni od biezacej daty,
-"add_note" - dodaje notatke,
+"display_birthday" - wyświetla listę kontaktów, których urodziny przypadają za określoną liczbę dni od bieżącej daty,
+"add_note" - dodaje notatkę,
 "add_tag" - dodaje tag do wybranej notatki,
-"find_note" - wyszukuje notatke wedlug tytulu,
-"find_by_tag" - wyszukuje notatke wedlug znacznika,
+"find_note" - wyszukuje notatkę według tytułu,
+"find_by_tag" - wyszukuje notatkę według znacznika,
 "edit_note" - edytuje notatki,
-"delete_note" - usuwa notatki wedug tytulu,
-"display_notes" - wyswietla notatke,
-"sort_notes" - sortuje notatki wedlug znacznika,
-"exit", "close" - zamyka ksiazke adresowa.
+"delete_note" - usuwa notatki według tytułu,
+"display_notes" - wyświetla notatki,
+"sort_notes" - sortuje notatki według znacznika,
+"exit", "close" - zamyka książkę adresową.
 
 IV. Pomoc i zasoby
-Jesli masz pytania dotyczace pakietu CLI_AddressBook lub potrzebujesz dodatkowej pomocy, skorzystaj z dokumentacji pakietu dostepnej na oficjalnej stronie internetowej projektu. Mozesz rowniez odwiedzic fora dyskusyjne i spolecznosc Pythona, aby uzyskac wsparcie od innych uzytkownikow.
-To podstawowy podrecznik uzytkownika, ktory powinien dostarczyc Ci informacji na temat instalacji i podstawowego uzywania pakietu CLI_AddressBook. W razie potrzeby, zawsze mozesz sprawdzic dokladna dokumentacje pakietu dla bardziej zaawansowanych opcji i funkcji.
+Jeśli masz pytania dotyczące pakietu CLI_AddressBook lub potrzebujesz dodatkowej pomocy, skorzystaj z dokumentacji pakietu dostępnej na oficjalnej stronie internetowej projektu. Możesz również odwiedzić fora dyskusyjne i społeczność Pythona, aby uzyskać wsparcie od innych użytkowników.
+To podstawowy podręcznik użytkownika, który powinien dostarczyć Ci informacji na temat instalacji i podstawowego użytkowania pakietu CLI_AddressBook. W razie potrzeby, zawsze możesz sprawdzić dokładną dokumentację pakietu dla bardziej zaawansowanych opcji i funkcji.

@@ -9,7 +9,7 @@ II. Instalacja pakietu
 3. Wpisz poniższą komendę i naciśnij Enter:
   "pip install CLI_AddressBook"
 4. Po pomyślnej instalacji, aby uruchomić książkę adresową, wpisz poniższą komendę i naciśnij Enter:
-  "enter_addressbook"
+  "enter_cli_addressbook"
 To spowoduje uruchomienie interaktywnego interfejsu do zarządzania książką adresową.
 
 III. Użytkowanie pakietu

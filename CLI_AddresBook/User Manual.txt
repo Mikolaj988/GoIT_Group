@@ -6,7 +6,7 @@ Ta instrukcja ma na celu pomóc użytkownikowi w instalacji i korzystaniu z paki
 II. Instalacja pakietu
 1. Przed instalacją pakietu upewnij się, że masz zainstalowanego Pythona.
 2. Otwórz terminal lub wiersz poleceń na swoim systemie operacyjnym.
-3. Wejd do katalogu w kturym znajduje sie sciagniety program.
+3. Wejdź do katalogu, w którym znajduje się ściągnięty program.
 4. Wpisz poniższą komendę i naciśnij Enter:
   "pip install -e."
 5. Po pomyślnej instalacji, aby uruchomić książkę adresową, wpisz poniższą komendę i naciśnij Enter:

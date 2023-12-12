@@ -1,4 +1,4 @@
-from address_book import *
+from project_address_book import *
 from notebook import *
 
 

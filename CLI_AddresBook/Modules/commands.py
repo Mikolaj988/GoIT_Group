@@ -73,10 +73,14 @@ def execute_command(command, address_book, note_collection):
 
     else:
         print("Unknown command. Type 'help' to see the list of commands.")
-if __name__=="__main__":
+        
+def main():
     address_book = AddressBook()
     note_collection = NoteCollection()
 
     while True:
         user_input = input("Enter a command (type 'help' for a list of commands): ")
         execute_command(user_input, address_book, note_collection)
+
+if __name__ == "__main__":
+    main()

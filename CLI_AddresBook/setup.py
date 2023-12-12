@@ -9,5 +9,5 @@ setup(
     author='Aleksandra, Mikolaj, Pawel, Olek',
     author_email='niemozliwyj.bajer@gmail.com',
     packages=find_packages(),
-    entry_points={'console_scripts': ['enter_cli_addressbook = CLI_AddressBook.CLI:main']},
+    entry_points={'console_scripts': ['enter_cli_addressbook = Modules.commands:main']},
 )

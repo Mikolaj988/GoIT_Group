@@ -1,5 +1,5 @@
-from project_address_book import *
-from notebook import *
+from .project_address_book import *
+from .notebook import *
 
 
 def add_contact(address_book):

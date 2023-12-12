@@ -1,8 +1,8 @@
 # commands.py
 
-from logic import *
-from notebook import *
-from project_address_book import *
+from .logic import *
+from .notebook import *
+from .project_address_book import *
 
 def execute_command(command, address_book, note_collection):
     if command == "help":

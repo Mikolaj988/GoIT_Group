@@ -1,6 +1,6 @@
 import json
-from notebook import Note, NoteCollection
-from project_address_book import Record, AddressBook
+from .notebook import *
+from .project_address_book import *
 
 
 def format_birthday(birthday):

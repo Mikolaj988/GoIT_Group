@@ -1,4 +1,4 @@
-Instalacja i użytkowanie pakietu CLI_AddressBook
+.Instalacja i użytkowanie pakietu CLI_AddressBook
 
 I. Wprowadzenie
 Ta instrukcja ma na celu pomóc użytkownikowi w instalacji i korzystaniu z pakietu CLI_AddressBook. Pakiet CLI_AddressBook to zbiór modułów i CLI, który pozwala tworzyć i przechowywać książkę kontaktów, a także tworzyć i przechowywać notatki.
@@ -6,9 +6,10 @@ Ta instrukcja ma na celu pomóc użytkownikowi w instalacji i korzystaniu z paki
 II. Instalacja pakietu
 1. Przed instalacją pakietu upewnij się, że masz zainstalowanego Pythona.
 2. Otwórz terminal lub wiersz poleceń na swoim systemie operacyjnym.
-3. Wpisz poniższą komendę i naciśnij Enter:
-  "pip install CLI_AddressBook"
-4. Po pomyślnej instalacji, aby uruchomić książkę adresową, wpisz poniższą komendę i naciśnij Enter:
+3. Wejd do katalogu w kturym znajduje sie sciagniety program.
+4. Wpisz poniższą komendę i naciśnij Enter:
+  "pip install -e."
+5. Po pomyślnej instalacji, aby uruchomić książkę adresową, wpisz poniższą komendę i naciśnij Enter:
   "enter_cli_addressbook"
 To spowoduje uruchomienie interaktywnego interfejsu do zarządzania książką adresową.
 

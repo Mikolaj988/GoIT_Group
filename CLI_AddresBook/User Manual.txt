@@ -19,7 +19,7 @@ Lista komend do dyspozycji użytkownika:
 "hello" - wywołuje powitalny komunikat,
 "add" - dodaje kontakt według podanego schematu: nazwa kontaktu, numer telefonu, email, data urodzin,
 "change" - zmienia nazwę kontaktu, numer telefonu, email i datę urodzin,
-"show all" - wyświetla wszystkie kontakty w książce kontaktów,
+"show_all" - wyświetla wszystkie kontakty w książce kontaktów,
 "delete_contact" - usuwa kontakt,
 "display_birthday" - wyświetla listę kontaktów, których urodziny przypadają za określoną liczbę dni od bieżącej daty,
 "add_note" - dodaje notatkę,

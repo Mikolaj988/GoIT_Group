@@ -65,7 +65,7 @@ def add_note(note_collection):
 
 def add_tag_to_note(note_collection):
     title = input("Enter the title of the note to add a tag: ")
-    note = note_collection.find_note(title)
+    note = note_collection.find_note_by_title(title)
 
     if note:
         tag = input("Enter the tag to add: ")

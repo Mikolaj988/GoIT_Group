@@ -77,7 +77,7 @@ def execute_command(command, address_book, note_collection):
         
 def main():
     address_book = AddressBook()
-    note_collection = NoteCollection()
+    note_collection = Notepad()
 
     while True:
         user_input = input("Enter a command (type 'help' for a list of commands): ")

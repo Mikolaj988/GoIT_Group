@@ -33,10 +33,12 @@ class NoteBook(UserDict):
         super().__init__(records or {})
 
     def search_tag(self, tag):
-        ...
+        matching_records = [note for note in self.data.values() if tag in note._tags]
+        return matching_records
 
     def search_note(self, title):
-        ...
+        matching_records = [note for note in self.data.values() if title.lower() in note._title.lower()]
+        return matching_records
 
     def sort_tag(self):
         pass
@@ -65,7 +67,8 @@ notebook = NoteBook()
 note = Note("Example Note", "This is an example note.")
 
 # Добавляем теги к заметке
-note.add_tag(["tag1", "tag2"])
+note.add_tag("tag1")
+note.add_tag("tag2")
 
 # Добавляем заметку в NoteBook
 notebook.add_note(note)

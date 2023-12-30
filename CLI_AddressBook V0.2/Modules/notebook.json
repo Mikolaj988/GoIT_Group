@@ -1,0 +1,12 @@
+{
+    "Example Note": {
+        "title": "Example Note",
+        "text": "This is an example note.",
+        "tags": [
+            [
+                "tag1",
+                "tag2"
+            ]
+        ]
+    }
+}

@@ -1,6 +1,10 @@
-import re
 from collections import UserDict
 import curses
+
+
+# stdscr = curses.initscr()
+# curses.start_color()
+# curses.init_pair(1, curses.COLOR_RED, curses.COLOR_BLACK)
 
 
 class Note:
@@ -16,6 +20,8 @@ class Note:
         self._tags = [i for i in self._tags if str(i) != tag]
         if not self._tags:
             print(f'All tags have been deleted.')
+            # stdscr.addstr(f'All tags have been deleted.', curses.color_pair(1))
+            # stdscr.refresh()
 
     def rewrite_note(self, new_title=None, new_text=None):
         if new_title is not None:
@@ -75,3 +81,6 @@ class NoteBook(UserDict):
             return "\n".join(str(record) for record in self.data.values())
         else:
             return "\n".join(str(record) for record in records)
+
+
+# curses.endwin()

@@ -1,5 +1,6 @@
+import re
 from collections import UserDict
-from serialization import to_json_note, from_json_note
+import curses
 
 
 class Note:
@@ -8,13 +9,14 @@ class Note:
         self._tags = tags or []
         self._text = text
 
-    def add_tag(self, tags):
-        self._tags.append(tags)
+    def add_tag(self, tag):
+        self._tags.append(tag)
 
     def delete_tag(self, tag):
         self._tags = [i for i in self._tags if str(i) != tag]
         if not self._tags:
-            print(f'All tags hase ben deleted.')
+            print(f'All tags have been deleted.')
+
 
     def rewrite_note(self, new_title=None, new_text=None):
         if new_title is not None:
@@ -33,79 +35,45 @@ class NoteBook(UserDict):
         super().__init__(records or {})
 
     def search_tag(self, tag):
-        matching_records = [note for note in self.data.values() if tag in note._tags]
-        return matching_records
+        matching_records = [
+            record for record in self.data.values() if any(tag.lower() in t.lower() for t in record._tags)
+        ]
+        if not matching_records:
+            return "No records to display.\n"
+        else:
+            return self.__str__(matching_records)
 
     def search_note(self, title):
-        matching_records = [note for note in self.data.values() if title.lower() in note._title.lower()]
-        return matching_records
+        matching_records = [
+            note for note in self.data.values() if title.lower() in note._title.lower()
+        ]
+        if not matching_records:
+            return "No records to display.\n"
+        return self.__str__(matching_records)
 
     def sort_tag(self):
-        pass
+        for records in self.data.values():
+            records._tags.sort()
+
+        sorted_records = sorted(self.data.values(), key=lambda record: record._tags)
+        return self.__str__(sorted_records)
 
     def add_note(self, record: Note):
         if record._title is None:
-            raise ValueError(f'Error: The contact cannot be created.\n')
+            raise ValueError(f'Error: Note cannot be created.\n')
         else:
             self.data[record._title] = record
 
     def delete_note(self, title):
         if title in self.data:
             del self.data[title]
-            print(f"Note {title} exterminated successfully ;)\n")
+            print(f"Note {title} deleted successfully\n")
         else:
             print(f"Note {title} not found in the address book.\n")
 
-    def __str__(self):
-        return "\n".join(str(note) for note in self.data.values())
-
-
-# Создаем экземпляр NoteBook
-notebook = NoteBook()
-
-# Создаем экземпляр Note
-note = Note("Example Note", "This is an example note.")
-
-# Добавляем теги к заметке
-note.add_tag("tag1")
-note.add_tag("tag2")
-
-# Добавляем заметку в NoteBook
-notebook.add_note(note)
-
-# Выводим содержимое NoteBook
-print("Initial NoteBook:")
-print(notebook)
-
-# Сохраняем NoteBook в файл JSON
-filename = "notebook.json"
-to_json_note(notebook, filename)
-print(f'NoteBook saved to {filename}\n')
-
-# Загружаем NoteBook из файла JSON
-loaded_notebook = from_json_note(filename)
-
-# Выводим содержимое загруженного NoteBook
-print("Loaded NoteBook:")
-print(loaded_notebook)
-
-# Поиск заметки по тегу
-tag_to_search = "tag1"
-matching_notes = loaded_notebook.search_tag(tag_to_search)
-print(f"Notes with tag '{tag_to_search}':")
-print(matching_notes)
-
-# Поиск заметки по заголовку
-title_to_search = "Example"
-matching_notes = loaded_notebook.search_note(title_to_search)
-print(f"Notes with title '{title_to_search}':")
-print(matching_notes)
-
-# Удаление заметки
-note_to_delete = "Example Note"
-loaded_notebook.delete_note(note_to_delete)
-
-# Выводим обновленное содержимое NoteBook
-print("Updated NoteBook:")
-print(loaded_notebook)
+    def __str__(self, records=None):
+        if records is None:
+            return "\n".join(str(record) for record in self.data.values())
+        else:
+            return "\n".join(str(record) for record in records)
 

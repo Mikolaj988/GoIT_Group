@@ -1,4 +1,5 @@
 import json
+from notebook import Note, NoteBook
 
 
 def to_json_note(notebook, filename):
@@ -15,7 +16,6 @@ def to_json_note(notebook, filename):
 
 
 def from_json_note(filename):
-    from notebook import Note, NoteBook
     with open(filename, 'r') as data_file:
         data = json.load(data_file)
         notes_dict = {}

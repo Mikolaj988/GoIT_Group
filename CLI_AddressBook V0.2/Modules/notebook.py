@@ -17,7 +17,6 @@ class Note:
         if not self._tags:
             print(f'All tags have been deleted.')
 
-
     def rewrite_note(self, new_title=None, new_text=None):
         if new_title is not None:
             self._title = new_title
@@ -76,4 +75,3 @@ class NoteBook(UserDict):
             return "\n".join(str(record) for record in self.data.values())
         else:
             return "\n".join(str(record) for record in records)
-

@@ -71,11 +71,11 @@ from serialization import to_json_note, from_json_note
 
 # AddressBook
 # Create a Contact
-contact1 = Contact("John Doe")
-print(contact1)
-
-contact1.add_birthday("12.01.1990")
-print(contact1)
+# contact1 = Contact("John Doe")
+# print(contact1)
+#
+# contact1.add_birthday("12.01.1990")
+# print(contact1)
 
 # # Add phone number
 # contact1.add_phone("9876543210")
@@ -116,3 +116,17 @@ print(contact1)
 # contact1.delete_email("john@example.com")
 # contact1.delete_email("john.doe@example.com")
 # print(contact1)
+
+# Załóżmy, że masz już utworzoną klasę AddressBook i Contact.
+
+# Tworzenie obiektu Contact
+new_contact = Contact("John Doe", phone="1234567890", birthday="01.01.1990", email="john@example.com")
+
+# Utworzenie książki adresowej
+address_book = AddressBook()
+
+# Dodanie nowego kontaktu do książki adresowej
+address_book.rec_add(new_contact)
+
+# Wyświetlenie zawartości książki adresowej
+print(address_book)

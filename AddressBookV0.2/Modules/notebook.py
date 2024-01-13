@@ -46,7 +46,7 @@ class NoteBook(UserDict):
 
     def search_note(self, title):
         matching_records = [
-            note for note in self.data.values() if title.lower() in note.title.lower()
+            note for note in self.data.values() if title.IGNORECASE() in note.title.IGNORECASE()
         ]
         if not matching_records:
             return "No records to display.\n"

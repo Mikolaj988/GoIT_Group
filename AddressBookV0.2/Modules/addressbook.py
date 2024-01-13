@@ -166,5 +166,50 @@ class Contact:
                 f'Days to next Birthday left: {self.days_to_birthday()}\n')
 
 
-class AddressBook:
-    pass
+class AddressBook(UserDict):
+    def __init__(self, records: dict = None):
+        super().__init__(records or {})
+        self.page_size = 1
+        self.page_index = 0
+
+    def __iter__(self):
+        pass
+
+    def __next__(self):
+        pass
+
+    def rec_add(self, record: Contact):
+        if record.name is None:
+            raise ValueError(f"Error: Contact cannot be created.\n")
+        else:
+            self.data[record.name] = record
+
+    def rec_delete(self, name):
+        if name in self.data:
+            del self.data[name]
+            print(f'Contact {name} deleted successfully\n')
+        else:
+            print(f'Contact {name} not found in the address book.\n')
+
+    def display_nest_page(self):
+        pass
+
+    def search(self, pattern):
+        matching_record = []
+
+        for record in self.data.values():
+            if (
+                    re.search(pattern, record.name.value, re.IGNORECASE) or
+                    any(re.search(pattern, str(phone), re.IGNORECASE) for phone in record.phone) or
+                    (record.birthday and re.search(pattern, record.birthday.value, re.IGNORECASE)) or
+                    (record.email and re.search(pattern, record.email, re.IGNORECASE))
+            ):
+                matching_record.append(record)
+
+        return self.__str__(matching_record)
+
+    def __str__(self, records=None):
+        if records is None:
+            return "\n".join(str(record) for record in self.data.values())
+        else:
+            return "\n".join(str(record) for record in records)

@@ -13,10 +13,10 @@ class Contact:
             self.name = None
         else:
             self.name = name
-            self.phone = [phone] or []
+            self.phone = [phone] if phone else []
             self.birthday = birthday
             self.email = email
-            print(f'Contact {self.name} was CREATED.\n')
+            # print(f'Contact {self.name} was CREATED.\n')
 
     @staticmethod
     def validation_name(name):
@@ -66,7 +66,7 @@ class Contact:
             print(e)
         else:
             for key, elem in enumerate(self.phone):
-                if str(elem) == old_phone:
+                if elem == old_phone:
                     self.phone[key] = new_phone
                     print(f'Phone number "{old_phone}" has been successfully CHANGED to "{new_phone}"\n')
                     break
@@ -183,6 +183,7 @@ class AddressBook(UserDict):
             raise ValueError(f"Error: Contact cannot be created.\n")
         else:
             self.data[record.name] = record
+            print(f'Record with {record.name} was added.\n')
 
     def rec_delete(self, name):
         if name in self.data:
@@ -199,9 +200,9 @@ class AddressBook(UserDict):
 
         for record in self.data.values():
             if (
-                    re.search(pattern, record.name.value, re.IGNORECASE) or
+                    re.search(pattern, record.name, re.IGNORECASE) or
                     any(re.search(pattern, str(phone), re.IGNORECASE) for phone in record.phone) or
-                    (record.birthday and re.search(pattern, record.birthday.value, re.IGNORECASE)) or
+                    (record.birthday and re.search(pattern, record.birthday, re.IGNORECASE)) or
                     (record.email and re.search(pattern, record.email, re.IGNORECASE))
             ):
                 matching_record.append(record)

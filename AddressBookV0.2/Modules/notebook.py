@@ -4,7 +4,7 @@ from collections import UserDict
 class Note:
     def __init__(self, title, text=None, tags=None):
         self.title = title
-        self.tags = tags or []
+        self.tags = [tags] if tags else []
         self.text = text
 
     def add_tag(self, tag):
@@ -46,7 +46,7 @@ class NoteBook(UserDict):
 
     def search_note(self, title):
         matching_records = [
-            note for note in self.data.values() if title.IGNORECASE() in note.title.IGNORECASE()
+            note for note in self.data.values() if title.lower() in note.title.lower()
         ]
         if not matching_records:
             return "No records to display.\n"

@@ -72,9 +72,6 @@ class NoteBook(UserDict):
         else:
             print(f"Note {title} not found in the address book.\n")
 
-    def show_all(self):
-        print(self.__str__())
-
     def __str__(self, records=None):
         if records is None:
             return "\n".join(str(record) for record in self.data.values())

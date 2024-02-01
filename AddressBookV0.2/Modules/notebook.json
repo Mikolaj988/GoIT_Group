@@ -10,8 +10,7 @@
         "title": "Example Note 2",
         "text": "This is an example note.",
         "tags": [
-            "salami",
-            "apple"
+            "salami, apple"
         ]
     }
 }

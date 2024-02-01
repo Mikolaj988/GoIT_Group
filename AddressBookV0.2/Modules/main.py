@@ -1,149 +1,124 @@
+import sys
+from messages import MESSAGES
 from addressbook import Contact, AddressBook
 from notebook import Note, NoteBook
 from serialization import to_json_note, from_json_note, to_json_addressbook, from_json_addressbook
+from colorama import Fore, Style, init
 
-NoteBook
-# Create a NoteBook
-notebook = NoteBook()
-
-
-# Create a Note
-note1 = Note("Example Note 1", "This is an example note.")
-note2 = Note("Example Note 2", "This is an example note.", "salami")
+init()
 
 
-# Adding tags to a note
-note1.add_tag("banana")
-note2.add_tag("apple")
+def main_menu_loop():
+    main_manu_counter = 0
+
+    while True:
+
+        if not main_manu_counter == 1:
+            print(Fore.GREEN + MESSAGES['maine_welcome'] + Style.RESET_ALL)
+            main_manu_counter += 1
+
+        print(Fore.YELLOW + MESSAGES['maine_menu'] + Style.RESET_ALL)
+
+        user_input_main = input(Fore.GREEN + MESSAGES['input'] + Style.RESET_ALL).lower()
+
+        if user_input_main in COMMAND_LIST_MAIN.keys():
+            print(f'{Fore.GREEN}Execute {user_input_main}.{Style.RESET_ALL}')
+            print(COMMAND_LIST_MAIN[user_input_main]())
+        else:
+            print(Fore.RED + MESSAGES['command_error'] + Style.RESET_ALL)
 
 
-# Save NoteBook to JSON file
-notebook.add_note(note1)
-notebook.add_note(note2)
-filename = "notebook.json"
-to_json_note(notebook, filename)
+def notebook_loop():
+    notebook_manu_counter = 0
+    notebook = NoteBook()
+
+    while True:
+
+        if not notebook_manu_counter == 1:
+            notebook = from_json_note('notebook.json')
+            print(Fore.GREEN + MESSAGES['notebook_welcome'] + Style.RESET_ALL)
+            notebook_manu_counter += 1
+
+        print(Fore.YELLOW + MESSAGES['notebook_menu'] + Style.RESET_ALL)
+
+        user_input_notebook = input(Fore.GREEN + MESSAGES['input'] + Style.RESET_ALL).lower()
+
+        if user_input_notebook in COMMAND_LIST_NOTEBOOK.keys():
+            if user_input_notebook in ['exit_notebook', '11'] or user_input_notebook in ['exit_program', '12']:
+                to_json_note(notebook, 'notebook.json')
+                if user_input_notebook in ['exit_notebook', '11']:
+                    exit_notebook()
+                    break
+                elif user_input_notebook in ['exit_program', '12']:
+                    exit_program()
+            else:
+                print(f'{Fore.GREEN}Execute {user_input_notebook}.{Style.RESET_ALL}')
+                print(COMMAND_LIST_NOTEBOOK[user_input_notebook](???))
+        else:
+            print(Fore.RED + MESSAGES['command_error'] + Style.RESET_ALL)
 
 
-# Loading NoteBook from JSON file
-loaded_notebook = from_json_note(filename)
+def addressbook_loop():
+    pass
 
 
-# Displaying the contents of the downloaded NoteBook
-print(f"Loaded NoteBook:\n{loaded_notebook}")
+def main_help():
+    return Fore.BLUE + MESSAGES['main_help'] + Style.RESET_ALL
 
 
-# Search for a note by tag
-tag_to_search = "apple"
-matching_notes = loaded_notebook.search_tag(tag_to_search)
-print(f"Notes with tag '{tag_to_search}':\n{matching_notes}")
-
-tag_to_search = "banana"
-matching_notes = loaded_notebook.search_tag(tag_to_search)
-print(f"Notes with tag '{tag_to_search}':\n{matching_notes}")
+def notebook_help():
+    return Fore.BLUE + MESSAGES['notebook_help'] + Style.RESET_ALL
 
 
-# Search note by title
-title_to_search = "Example"
-matching_notes = loaded_notebook.search_note(title_to_search)
-print(f"Notes with title '{title_to_search}':\n{matching_notes}")
-
-title_to_search = "Notes"
-matching_notes = loaded_notebook.search_note(title_to_search)
-print(f"Notes with title '{title_to_search}':\n{matching_notes}")
+def exit_program():
+    return sys.exit(Fore.RED + MESSAGES['exit_program'] + Style.RESET_ALL)
 
 
-# Sorting by tag
-note_sorted_by_tag = loaded_notebook.sort_tag()
-print(f"Sorted by Tag:\n{note_sorted_by_tag}")
+def exit_notebook():
+    return Fore.BLUE + MESSAGES['exit_notebook'] + Style.RESET_ALL
 
 
-# Deleting a note
-note_to_delete = "Example Note 3"
-loaded_notebook.delete_note(note_to_delete)
-
-note_to_delete = "Example Note 1"
-loaded_notebook.delete_note(note_to_delete)
+def exit_addressbook():
+    pass
 
 
-# Displaying updated NoteBook contents
-print(f"Updated NoteBook:\n{loaded_notebook}")
+COMMAND_LIST_MAIN = {
+    'notebook': notebook_loop,
+    '1': notebook_loop,
+    'addressbook': addressbook_loop,
+    '2': addressbook_loop,
+    'help': main_help,
+    '3': main_help,
+    'exit': exit_program,
+    '4': exit_program,
+}
 
+COMMAND_LIST_NOTEBOOK = {
+    'add_note': NoteBook.add_note,
+    '1': NoteBook.add_note,
+    'rewrite_note': Note.rewrite_note,
+    '2': Note.rewrite_note,
+    'delete_note': NoteBook.delete_note,
+    '3': NoteBook.delete_note,
+    'search_note': NoteBook.search_note,
+    '4': NoteBook.search_note,
+    'add_tag': Note.add_tag,
+    '5': Note.add_tag,
+    'delete_tag': Note.delete_tag,
+    '6': Note.delete_tag,
+    'search_tag': NoteBook.search_tag,
+    '7': NoteBook.search_tag,
+    'sort_tag': NoteBook.sort_tag,
+    '8': NoteBook.sort_tag,
+    'show_all': NoteBook.show_all,
+    '9': NoteBook.show_all,
+    'help': notebook_help,
+    '10': notebook_help,
+    'exit_notebook': exit_notebook,
+    '11': exit_notebook,
+    'exit_program': exit_program,
+    '12': exit_program,
+}
 
-
-# # AddressBook
-# # Create a Contact
-# contact1 = Contact("John Doe")
-# print(contact1)
-#
-# contact1.add_birthday("12.01.1990")
-# print(contact1)
-#
-# # Add phone number
-# contact1.add_phone("9876543210")
-# print(contact1)  # ['1234567890', '9876543210']
-#
-# # Delete phone number
-# contact1.delete_phone("1234567890")
-# print(contact1)  # ['9876543210']
-#
-# # Edit phone number
-# contact1.edit_phone("9876543210", "5555555555")
-# print(contact1)  # ['5555555555']
-#
-# # Add more birthday
-# contact1.add_birthday("01.01.1990")
-# # Contact already haw birth date
-#
-# # Edite birthday
-# contact1.edit_birthday("03.03.1980")
-#
-# # Wrong birthday edition
-# contact1.edit_birthday("04.31.1975")
-# print(contact1)
-#
-# # Delete Birthday
-# contact1.delete_birthday("04.10.1975")
-# contact1.delete_birthday("01.01.1990")
-#
-# # Add more email
-# contact1.add_email("john2@example.com")
-# # Contact already haw Email
-# print(contact1)
-#
-# # Edite email
-# contact1.edit_email("john.doe@example.com")
-#
-# # Delete email
-# contact1.delete_email("john@example.com")
-# contact1.delete_email("john.doe@example.com")
-# print(contact1)
-
-# Załóżmy, że masz już utworzoną klasę AddressBook i Contact.
-
-# # Tworzenie obiektu Contact
-# contact1 = Contact("John Doe")
-# contact2 = Contact("Jane Smith", phone="9876543210", birthday="15.03.1985", email="jane.smith@example.com")
-#
-# contact1.add_phone("1111111111")
-#
-#
-# # Utworzenie książki adresowej
-# address_book = AddressBook()
-#
-# # Dodanie nowego kontaktu do książki adresowej
-# address_book.rec_add(contact1)
-# address_book.rec_add(contact2)
-#
-# print(address_book)
-# # Save NoteBook to JSON file
-# filename = "addressbook.json"
-# to_json_addressbook(address_book, filename)
-#
-# # Wyświetlenie zawartości książki adresowej
-# # print(address_book)
-#
-# # Loading AddressBook from JSON file
-# loaded_notebook = from_json_addressbook(filename)
-#
-# # Displaying the contents of the downloaded NoteBook
-# print(f"Loaded AddressBook:\n{loaded_notebook}")
+if __name__ == '__main__':
+    main_menu_loop()

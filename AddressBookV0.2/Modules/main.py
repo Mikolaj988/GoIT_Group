@@ -19,13 +19,19 @@ def main_menu_loop():
 
         print(Fore.YELLOW + MESSAGES['maine_menu'] + Style.RESET_ALL)
 
-        user_input_main = input(Fore.GREEN + MESSAGES['input'] + Style.RESET_ALL).lower()
+        user_input_main = input(Fore.GREEN + MESSAGES['input_command'] + Style.RESET_ALL).lower()
 
-        if user_input_main in COMMAND_LIST_MAIN.keys():
-            print(f'{Fore.GREEN}Execute {user_input_main}.{Style.RESET_ALL}')
-            print(COMMAND_LIST_MAIN[user_input_main]())
-        else:
-            print(Fore.RED + MESSAGES['command_error'] + Style.RESET_ALL)
+        match user_input_main:
+            case 'notebook' | '1':
+                notebook_loop()
+            case 'addressbook' | '2':
+                addressbook_loop()
+            case 'help' | '3':
+                print(main_help())
+            case 'exit' | '4':
+                exit_program()
+            case _:
+                print(Fore.RED + MESSAGES['error_command'] + Style.RESET_ALL)
 
 
 def notebook_loop():
@@ -38,28 +44,189 @@ def notebook_loop():
             notebook = from_json_note('notebook.json')
             print(Fore.GREEN + MESSAGES['notebook_welcome'] + Style.RESET_ALL)
             notebook_manu_counter += 1
+            if not notebook:
+                print(Fore.BLUE + MESSAGES['notebook_empty'] + Style.RESET_ALL)
+            else:
+                print(Fore.BLUE + MESSAGES['load'] + str(len(notebook)) + Style.RESET_ALL)
 
         print(Fore.YELLOW + MESSAGES['notebook_menu'] + Style.RESET_ALL)
 
-        user_input_notebook = input(Fore.GREEN + MESSAGES['input'] + Style.RESET_ALL).lower()
+        user_input_notebook = input(Fore.GREEN + MESSAGES['input_command'] + Style.RESET_ALL).lower()
 
-        if user_input_notebook in COMMAND_LIST_NOTEBOOK.keys():
-            if user_input_notebook in ['exit_notebook', '11'] or user_input_notebook in ['exit_program', '12']:
+        match user_input_notebook:
+            case 'add_note' | '1':
+                title_add = input(Fore.GREEN + MESSAGES['title_add'] + Style.RESET_ALL)
+                text_add = input(Fore.GREEN + MESSAGES['text_add'] + Style.RESET_ALL)
+                # tags_add = input(Fore.GREEN + MESSAGES['tags_add'] + Style.RESET_ALL).split()
+                # dodaje listę. problem z __init__!?
+                note = Note(title_add, text_add)
+                notebook.add_note(note)
+                print(note)
                 to_json_note(notebook, 'notebook.json')
-                if user_input_notebook in ['exit_notebook', '11']:
-                    exit_notebook()
-                    break
-                elif user_input_notebook in ['exit_program', '12']:
-                    exit_program()
-            else:
-                print(f'{Fore.GREEN}Execute {user_input_notebook}.{Style.RESET_ALL}')
-                print(COMMAND_LIST_NOTEBOOK[user_input_notebook](???))
-        else:
-            print(Fore.RED + MESSAGES['command_error'] + Style.RESET_ALL)
+                print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
+            case 'rewrite_note' | '2':
+                title_to_rewrite = input(Fore.GREEN + MESSAGES['title_to_rewrite'] + Style.RESET_ALL)
+                if title_to_rewrite in notebook.data:
+                    note = notebook.data[title_to_rewrite]
+                    title_new = input(Fore.GREEN + MESSAGES['title_new'] + Style.RESET_ALL)
+                    text_new = input(Fore.GREEN + MESSAGES['text_new'] + Style.RESET_ALL)
+                    note.rewrite_note(title_new, text_new)
+                    to_json_note(notebook, 'notebook.json')
+                    print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
+                else:
+                    print(Fore.RED + title_to_rewrite + MESSAGES['error_not_found'] + Style.RESET_ALL)
+            case 'delete_note' | '3':
+                title_to_delete = input(Fore.GREEN + MESSAGES['title_to_delete'] + Style.RESET_ALL)
+                notebook.delete_note(title_to_delete)
+                to_json_note(notebook, 'notebook.json')
+                print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
+            case 'search_note' | '4':
+                title_search = input(Fore.GREEN + MESSAGES['title_search'] + Style.RESET_ALL)
+                result = notebook.search_note(title_search)
+                print(result)
+            case 'add_tag' | '5':
+                title_to_tag = input(Fore.GREEN + MESSAGES['title_to_tag'] + Style.RESET_ALL)
+                if title_to_tag in notebook.data:
+                    note = notebook.data[title_to_tag]
+                    tag_new = input(Fore.GREEN + MESSAGES['tags_add'] + Style.RESET_ALL).split()
+                    note.add_tag(tag_new)
+                    to_json_note(notebook, 'notebook.json')
+                    print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
+                else:
+                    print(Fore.RED + title_to_tag + MESSAGES['error_not_found'] + Style.RESET_ALL)
+
+            # case 'delete_tag' | '6':
+            #     title_to_untag = input(Fore.GREEN + MESSAGES['title_to_untag'] + Style.RESET_ALL)
+            #     tag_to_delete = input(Fore.GREEN + MESSAGES['tag_to_delete'] + Style.RESET_ALL)
+            #     notebook.delete_tag(title_to_untag, tag_to_delete)
+            #     print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
+
+            case 'search_tag' | '7':
+                tag_search = input(Fore.GREEN + MESSAGES['tag_search'] + Style.RESET_ALL)
+                result = notebook.search_tag(tag_search)
+                print(result)
+            case 'sort_tag' | '8':
+                result = notebook.sort_tag()
+                print(result)
+            case 'show_all' | '9':
+                print(notebook)
+            case 'help' | '10':
+                print(notebook_help())
+            case 'exit_notebook' | '11':
+                to_json_note(notebook, 'notebook.json')
+                exit_notebook()
+                break
+            case 'exit_program' | '12':
+                to_json_note(notebook, 'notebook.json')
+                exit_program()
+            case _:
+                print(Fore.RED + MESSAGES['error_command'] + Style.RESET_ALL)
 
 
 def addressbook_loop():
-    pass
+    address_book_menu_counter = 0
+    addressbook = AddressBook()
+
+    while True:
+        if not address_book_menu_counter == 1:
+            addressbook = from_json_addressbook('address_book.json')
+            print(Fore.GREEN + MESSAGES['addressbook_welcome'] + Style.RESET_ALL)
+            address_book_menu_counter += 1
+            if not addressbook:
+                print(Fore.BLUE + MESSAGES['addressbook_empty'] + Style.RESET_ALL)
+            else:
+                print(Fore.BLUE + MESSAGES['load'] + str(len(addressbook)) + Style.RESET_ALL)
+
+        print(Fore.YELLOW + MESSAGES['addressbook_menu'] + Style.RESET_ALL)
+
+        user_input_addressbook = input(Fore.GREEN + MESSAGES['input_command'] + Style.RESET_ALL).lower()
+
+        match user_input_addressbook:
+            case 'add_contact' | '1':
+                name_add = input(Fore.GREEN + MESSAGES['name_add'] + Style.RESET_ALL)
+                phone_add = input(Fore.GREEN + MESSAGES['phone_add'] + Style.RESET_ALL)
+                birthday_add = input(Fore.GREEN + MESSAGES['birthday_add'] + Style.RESET_ALL)
+                email_add = input(Fore.GREEN + MESSAGES['email_add'] + Style.RESET_ALL)
+                contact = Contact(name_add, phone_add, birthday_add, email_add)
+                addressbook.contact_add(contact)
+                print(contact)
+                print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
+            case 'edit_contact' | '2':
+                name_to_rewrite = input(Fore.GREEN + MESSAGES['name_to_rewrite'] + Style.RESET_ALL)
+                new_name = input(Fore.GREEN + MESSAGES['name_add'] + Style.RESET_ALL)
+                addressbook.edit_contact(name_to_rewrite, new_name)
+                print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
+            case 'delete_contact' | '3':
+                name_to_delete = input(Fore.GREEN + MESSAGES['contact_to_delete'] + Style.RESET_ALL)
+                addressbook.contact_delete(name_to_delete)
+                print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
+            case 'search_contact' | '4':
+                pattern_search = input(Fore.GREEN + MESSAGES['pattern_search'] + Style.RESET_ALL)
+                result = addressbook.search(pattern_search)
+                print(result)
+            case 'add_phone' | '5':
+                name_to_add_phone = input(Fore.GREEN + MESSAGES['name_to_add_phone'] + Style.RESET_ALL)
+                new_phone = input(Fore.GREEN + MESSAGES['phone_add'] + Style.RESET_ALL)
+                addressbook.add_phone(name_to_add_phone, new_phone)
+                print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
+        #     case 'delete_phone' | '6':
+        #         name_to_delete_phone = input(Fore.GREEN + MESSAGES['name_to_delete_phone'] + Style.RESET_ALL)
+        #         phone_to_delete = input(Fore.GREEN + MESSAGES['phone_to_delete'] + Style.RESET_ALL)
+        #         address_book.delete_phone(name_to_delete_phone, phone_to_delete)
+        #         print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
+        #     case 'edit_phone' | '7':
+        #         name_to_edit_phone = input(Fore.GREEN + MESSAGES['name_to_edit_phone'] + Style.RESET_ALL)
+        #         old_phone = input(Fore.GREEN + MESSAGES['old_phone'] + Style.RESET_ALL)
+        #         new_phone = input(Fore.GREEN + MESSAGES['new_phone'] + Style.RESET_ALL)
+        #         address_book.edit_phone(name_to_edit_phone, old_phone, new_phone)
+        #         print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
+        #     case 'add_birthday' | '8':
+        #         name_to_add_birthday = input(Fore.GREEN + MESSAGES['name_to_add_birthday'] + Style.RESET_ALL)
+        #         new_birthday = input(Fore.GREEN + MESSAGES['new_birthday'] + Style.RESET_ALL)
+        #         address_book.add_birthday(name_to_add_birthday, new_birthday)
+        #         print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
+        #     case 'delete_birthday' | '9':
+        #         name_to_delete_birthday = input(Fore.GREEN + MESSAGES['name_to_delete_birthday'] + Style.RESET_ALL)
+        #         birthday_to_delete = input(Fore.GREEN + MESSAGES['birthday_to_delete'] + Style.RESET_ALL)
+        #         address_book.delete_birthday(name_to_delete_birthday, birthday_to_delete)
+        #         print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
+        #     case 'edit_birthday' | '10':
+        #         name_to_edit_birthday = input(Fore.GREEN + MESSAGES['name_to_edit_birthday'] + Style.RESET_ALL)
+        #         new_birthday = input(Fore.GREEN + MESSAGES['new_birthday'] + Style.RESET_ALL)
+        #         address_book.edit_birthday(name_to_edit_birthday, new_birthday)
+        #         print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
+        #     case 'add_email' | '11':
+        #         name_to_add_email = input(Fore.GREEN + MESSAGES['name_to_add_email'] + Style.RESET_ALL)
+        #         new_email = input(Fore.GREEN + MESSAGES['new_email'] + Style.RESET_ALL)
+        #         address_book.add_email(name_to_add_email, new_email)
+        #         print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
+        #     case 'delete_email' | '12':
+        #         name_to_delete_email = input(Fore.GREEN + MESSAGES['name_to_delete_email'] + Style.RESET_ALL)
+        #         email_to_delete = input(Fore.GREEN + MESSAGES['email_to_delete'] + Style.RESET_ALL)
+        #         address_book.delete_email(name_to_delete_email, email_to_delete)
+        #         print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
+        #     case 'edit_email' | '13':
+        #         name_to_edit_email = input(Fore.GREEN + MESSAGES['name_to_edit_email'] + Style.RESET_ALL)
+        #         new_email = input(Fore.GREEN + MESSAGES['new_email'] + Style.RESET_ALL)
+        #         address_book.edit_email(name_to_edit_email, new_email)
+        #         print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
+        #     case 'days_to_birthday' | '14':
+        #         name_to_check_birthday = input(Fore.GREEN + MESSAGES['name_to_check_birthday'] + Style.RESET_ALL)
+        #         result = address_book.days_to_birthday(name_to_check_birthday)
+        #         print(result)
+        #     case 'display_all' | '15':
+        #         print(address_book)
+        #     case 'help' | '16':
+        #         print(address_book_help())
+        #     case 'exit_address_book' | '17':
+        #         to_json_address_book(address_book, 'address_book.json')
+        #         exit_address_book()
+        #         break
+        #     case 'exit_program' | '18':
+        #         to_json_address_book(address_book, 'address_book.json')
+        #         exit_program()
+        #     case _:
+        #         print(Fore.RED + MESSAGES['command_error'] + Style.RESET_ALL)
 
 
 def main_help():
@@ -81,44 +248,6 @@ def exit_notebook():
 def exit_addressbook():
     pass
 
-
-COMMAND_LIST_MAIN = {
-    'notebook': notebook_loop,
-    '1': notebook_loop,
-    'addressbook': addressbook_loop,
-    '2': addressbook_loop,
-    'help': main_help,
-    '3': main_help,
-    'exit': exit_program,
-    '4': exit_program,
-}
-
-COMMAND_LIST_NOTEBOOK = {
-    'add_note': NoteBook.add_note,
-    '1': NoteBook.add_note,
-    'rewrite_note': Note.rewrite_note,
-    '2': Note.rewrite_note,
-    'delete_note': NoteBook.delete_note,
-    '3': NoteBook.delete_note,
-    'search_note': NoteBook.search_note,
-    '4': NoteBook.search_note,
-    'add_tag': Note.add_tag,
-    '5': Note.add_tag,
-    'delete_tag': Note.delete_tag,
-    '6': Note.delete_tag,
-    'search_tag': NoteBook.search_tag,
-    '7': NoteBook.search_tag,
-    'sort_tag': NoteBook.sort_tag,
-    '8': NoteBook.sort_tag,
-    'show_all': NoteBook.show_all,
-    '9': NoteBook.show_all,
-    'help': notebook_help,
-    '10': notebook_help,
-    'exit_notebook': exit_notebook,
-    '11': exit_notebook,
-    'exit_program': exit_program,
-    '12': exit_program,
-}
 
 if __name__ == '__main__':
     main_menu_loop()

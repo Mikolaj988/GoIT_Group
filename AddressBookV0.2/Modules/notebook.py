@@ -8,7 +8,10 @@ class Note:
         self.text = text
 
     def add_tag(self, tag):
-        self.tags.append(tag)
+        if isinstance(tag, list):
+            self.tags.extend(tag)
+        else:
+            self.tags.append(tag)
 
     def delete_tag(self, tag):
         self.tags = [i for i in self.tags if str(i) != tag]
@@ -24,7 +27,7 @@ class Note:
     def __str__(self):
         return (
             f"Title: {self.title}\n"
-            f'Tag: {", ".join(map(str, self.tags))}\n'
+            f'Tags: {", ".join(map(str, self.tags))}\n'
             f'Text: {self.text if self.text else ""}\n'
         )
 
@@ -37,7 +40,7 @@ class NoteBook(UserDict):
         matching_records = [
             record
             for record in self.data.values()
-            if any(tag.lower() in t.lower() for t in record.tags)
+            if any(tag.lower() in str(t).lower() for t in record.tags)
         ]
         if not matching_records:
             return "No records to display.\n"
@@ -70,7 +73,7 @@ class NoteBook(UserDict):
             del self.data[title]
             print(f"Note {title} deleted successfully\n")
         else:
-            print(f"Note {title} not found in the address book.\n")
+            print(f"Note {title} not found in the notebook book.\n")
 
     def __str__(self, records=None):
         if records is None:

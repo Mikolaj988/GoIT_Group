@@ -1,16 +1,23 @@
 {
-    "Example Note 1": {
-        "title": "Example Note 1",
-        "text": "This is an example note.",
+    "Example Note 4": {
+        "title": "Example Note 4",
+        "text": "This is an example note 4.",
         "tags": [
-            "banana"
+            "banana, ice_cream, cookie"
         ]
     },
     "Example Note 2": {
         "title": "Example Note 2",
-        "text": "This is an example note.",
+        "text": "This is an example note. 2",
         "tags": [
             "salami, apple"
+        ]
+    },
+    "Example Note 1": {
+        "title": "Example Note 1",
+        "text": "This is an example note 1.",
+        "tags": [
+            "neils, scotch"
         ]
     }
 }

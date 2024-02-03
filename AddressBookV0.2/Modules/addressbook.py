@@ -44,6 +44,13 @@ class Contact:
             r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$',
             email))
 
+    def edit_name(self, old_name, new_name):
+        if new_name is not None and Contact.validation_name(new_name):
+            self.name = new_name
+            print(f'Name has been successfully changed from {old_name} to {new_name}.\n')
+        else:
+            print(f'Error: INVALID Name format for {new_name}\n')
+
     def add_phone(self, phone):
         try:
             if not Contact.validation_phone(phone):
@@ -178,14 +185,14 @@ class AddressBook(UserDict):
     def __next__(self):
         pass
 
-    def rec_add(self, record: Contact):
+    def contact_add(self, record: Contact):
         if record.name is None:
             raise ValueError(f"Error: Contact cannot be created.\n")
         else:
             self.data[record.name] = record
             print(f'Record with {record.name} was added.\n')
 
-    def rec_delete(self, name):
+    def contact_delete(self, name):
         if name in self.data:
             del self.data[name]
             print(f'Contact {name} deleted successfully\n')

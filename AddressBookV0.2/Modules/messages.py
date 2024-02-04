@@ -95,8 +95,9 @@ MESSAGES = {
 
     'success': f'Operation completed successful.',
 
-    'error_command': f'Unknown command. Try again.',
+    'error_command': f'Unknown command. Try to choose from following list.',
     'error_not_found': f'Cannot be found.',
+    'error_phone': f'You cannot edit phone number thet not exist.',
     'error': f'Something went wrong.\n'
              f'Please contact our support team for assistance.',
 
@@ -109,14 +110,18 @@ MESSAGES = {
                 f'>>> ',
     'tags_add': f'Enter note tags. Use space as separator.\n'
                 f'>>> ',
-    'name_add': f'Enter contact name.'
+    'name_add': f'Enter contact first & last name.\n'
                 f'>>> ',
-    'phone_add': f'Enter contact phone number.'
+    'phone_add': f'Enter contact phone number.\n'
                  f'>>> ',
-    'birthday_add': f'Enter contact birth date. DD.MM.YYYY'
+    'birthday_add': f'Enter contact birth date. DD.MM.YYYY\n'
                     f'>>> ',
-    'email_add': f'Enter contact email.'
+    'email_add': f'Enter contact email.\n'
                  f'>>>',
+    'email_to_delete': f'Enter email to delete.\n'
+                       f'>>>',
+    'birthday_to_delete': f'Enter birthday to delete.\n'
+                          f'>>>',
 
     'title_new': f'Enter new note title.\n'
                  f'>>> ',
@@ -144,6 +149,20 @@ MESSAGES = {
                     f'>>> ',
     'name_to_add_phone': f'Enter the contact name for whom you want to add a phone number.\n'
                          f'>>> ',
+    'name_to_add_birthday': f'Enter the contact name for whom you want to add birth data.\n'
+                         f'>>> ',
+    'name_to_edit_phone': f'Enter the contact name for whom you want to edite a phone number.\n'
+                         f'>>> ',
+    'name_to_edit_birthday': f'Enter the contact name for whom you want to edite a birthday.\n'
+                             f'>>> ',
+    'name_to_delete_birthday': f'Enter the contact name for whom you want to delete a birthday.\n'
+                               f'>>> ',
+    'name_to_add_email': f'Enter the contact name for whom you want to add a email.\n'
+                         f'>>> ',
+    'name_to_delete_email': f'Enter the contact name for whom you want to delete email.\n'
+                            f'>>> ',
+    'name_to_edit_email': f'Enter the contact name for whom you want to edit email.\n'
+                          f'>>> ',
 
     'title_to_untag': f'Enter note title to delete tag.\n'
                       f'>>> ',

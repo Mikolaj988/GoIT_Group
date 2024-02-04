@@ -47,41 +47,41 @@ class Contact:
     def edit_name(self, old_name, new_name):
         if new_name is not None and Contact.validation_name(new_name):
             self.name = new_name
-            print(f'Name has been successfully changed from {old_name} to {new_name}.\n')
+            print(f'Name has been successfully changed from {old_name} to {new_name}.')
         else:
-            print(f'Error: INVALID Name format for {new_name}\n')
+            print(f'Error: INVALID Name format for {new_name}')
 
     def add_phone(self, phone):
         try:
             if not Contact.validation_phone(phone):
-                raise ValueError(f'Error: INVALID phone number format for {phone}\n')
+                raise ValueError(f'Error: INVALID phone number format for {phone}')
         except ValueError as e:
             print(e)
         else:
             self.phone.append(phone)
-            print(f'Phone {phone} was ADD to contact {self.name}\n')
+            print(f'Phone {phone} was ADD to contact {self.name}')
 
     def delete_phone(self, phone):
         self.phone = [i for i in self.phone if str(i) != phone]
-        print(f'Phone {phone} was DELETE from contact {self.name}\n')
+        print(f'Phone {phone} was DELETE from contact {self.name}')
 
     def edit_phone(self, old_phone, new_phone):
         try:
             if not Contact.validation_phone(new_phone):
-                raise ValueError(f'Error: INVALID phone number format for {new_phone}\n')
+                raise ValueError(f'Error: INVALID phone number format for {new_phone}')
         except ValueError as e:
             print(e)
         else:
             for key, elem in enumerate(self.phone):
                 if elem == old_phone:
                     self.phone[key] = new_phone
-                    print(f'Phone number "{old_phone}" has been successfully CHANGED to "{new_phone}"\n')
+                    print(f'Phone number "{old_phone}" has been successfully CHANGED to "{new_phone}"')
                     break
 
     def add_birthday(self, birthday):
         try:
             if not Contact.validation_birthday(birthday):
-                raise ValueError(f'Error: INVALID birthday format for {birthday}\n')
+                raise ValueError(f'Error: INVALID birthday format for {birthday}')
         except ValueError as e:
             print(e)
         else:
@@ -89,68 +89,68 @@ class Contact:
                 print(f'Contact already haw birth date\n')
             else:
                 self.birthday = birthday
-                print(f'Birthday {birthday} has been successfully ADDED to contact {self.name}\n')
+                print(f'Birthday {birthday} has been successfully ADDED to contact {self.name}')
 
     def delete_birthday(self, birthday):
         try:
             if not Contact.validation_birthday(birthday):
-                raise ValueError(f'INVALID birthday format for {birthday}\n')
+                raise ValueError(f'INVALID birthday format for {birthday}')
         except ValueError as e:
             print(e)
         else:
             if self.birthday == birthday:
                 self.birthday = None
-                print(f'Birthday {birthday} was DELETED from contact {self.name}\n')
+                print(f'Birthday {birthday} was DELETED from contact {self.name}')
             else:
-                print(f'Error: Provided birthday does NOT MATCH the contact\'s birthday\n')
+                print(f'Error: Provided birthday does NOT MATCH the contact\'s birthday')
 
     def edit_birthday(self, new_birthday):
         try:
             if not Contact.validation_birthday(new_birthday):
-                raise ValueError(f'Error: INVALID birthday format for {new_birthday}\n')
+                raise ValueError(f'Error: INVALID birthday format for {new_birthday}')
         except ValueError as e:
             print(e)
         else:
             old_birthday = self.birthday
             self.birthday = new_birthday
-            print(f'Birthday "{old_birthday}" has been successfully CHANGED to "{new_birthday}"\n')
+            print(f'Birthday "{old_birthday}" has been successfully CHANGED to "{new_birthday}"')
 
     def add_email(self, email):
         try:
             if not Contact.validation_email(email):
-                raise ValueError(f'Error: INVALID email format for {email}\n')
+                raise ValueError(f'Error: INVALID email format for {email}')
         except ValueError as e:
             print(e)
         else:
             if self.email:
-                print(f'Contact already haw Email\n')
+                print(f'Contact already haw Email')
             else:
                 self.email = email
-                print(f'Email {email} has been successfully ADDED to contact {self.name}\n')
+                print(f'Email {email} has been successfully ADDED to contact {self.name}')
 
     def delete_email(self, email):
         try:
             if not Contact.validation_email(email):
-                raise ValueError(f'INVALID email format for {email}\n')
+                raise ValueError(f'INVALID email format for {email}')
         except ValueError as e:
             print(e)
         else:
             if self.email == email:
                 self.email = None
-                print(f'Email {email} was DELETED from contact {self.name}\n')
+                print(f'Email {email} was DELETED from contact {self.name}')
             else:
-                print(f'Error: Provided Email does NOT MATCH the contact\'s Email\n')
+                print(f'Error: Provided Email does NOT MATCH the contact\'s Email')
 
     def edit_email(self, new_email):
         try:
             if not Contact.validation_email(new_email):
-                raise ValueError(f'Error: INVALID birthday format for {new_email}\n')
+                raise ValueError(f'Error: INVALID birthday format for {new_email}')
         except ValueError as e:
             print(e)
         else:
             old_email = self.email
             self.email = new_email
-            print(f'Birthday "{old_email}" has been successfully CHANGED to "{new_email}"\n')
+            print(f'Birthday "{old_email}" has been successfully CHANGED to "{new_email}"')
 
     def days_to_birthday(self):
         if not self.birthday:
@@ -187,17 +187,17 @@ class AddressBook(UserDict):
 
     def contact_add(self, record: Contact):
         if record.name is None:
-            raise ValueError(f"Error: Contact cannot be created.\n")
+            raise ValueError("Error: Contact cannot be created. Name cannot be None.")
         else:
             self.data[record.name] = record
-            print(f'Record with {record.name} was added.\n')
+            print(f'Record with {record.name} was added.')
 
     def contact_delete(self, name):
         if name in self.data:
             del self.data[name]
-            print(f'Contact {name} deleted successfully\n')
+            print(f'Contact {name} deleted successfully')
         else:
-            print(f'Contact {name} not found in the address book.\n')
+            print(f'Contact {name} not found in the address book.')
 
     def display_nest_page(self):
         pass

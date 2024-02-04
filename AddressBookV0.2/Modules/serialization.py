@@ -54,7 +54,7 @@ def from_json_addressbook(filename):
         for name, addressbook_data in data.items():
             contact = Contact(
                 name,
-                ', '.join(map(str, addressbook_data.get('phone', []))),
+                addressbook_data.get('phone'),
                 addressbook_data.get("birthday"),
                 addressbook_data.get("email")
             )

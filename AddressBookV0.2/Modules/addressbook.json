@@ -1,18 +1,22 @@
 {
     "John Doe": {
         "name": "John Doe",
-        "phone": [
-            "1111111111"
-        ],
+        "phone": [],
         "birthday": null,
         "email": null
     },
     "Jane Smith": {
         "name": "Jane Smith",
-        "phone": [
-            "9876543210"
-        ],
+        "phone": [],
         "birthday": "15.03.1985",
         "email": "jane.smith@example.com"
+    },
+    "krzys f": {
+        "name": "krzys f",
+        "phone": [
+            "1234567890"
+        ],
+        "birthday": "05.05.1988",
+        "email": "krzysssff@gk.pl"
     }
 }

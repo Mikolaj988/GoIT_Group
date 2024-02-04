@@ -58,7 +58,7 @@ def notebook_loop():
                 text_add = input(Fore.GREEN + MESSAGES['text_add'] + Style.RESET_ALL)
                 tags_add = input(Fore.GREEN + MESSAGES['tags_add'] + Style.RESET_ALL).split()
                 note = Note(title_add, text_add, tags_add)
-                notebook.add_note(note)
+                print(notebook.add_note(note))
                 print(note)
                 to_json_note(notebook, 'notebook.json')
                 print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
@@ -68,7 +68,7 @@ def notebook_loop():
                     note = notebook.data[title_to_rewrite]
                     title_new = input(Fore.GREEN + MESSAGES['title_new'] + Style.RESET_ALL)
                     text_new = input(Fore.GREEN + MESSAGES['text_new'] + Style.RESET_ALL)
-                    note.rewrite_note(title_new, text_new)
+                    print(note.rewrite_note(title_new, text_new))
                     notebook.add_note(note)
                     to_json_note(notebook, 'notebook.json')
                     print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
@@ -76,7 +76,7 @@ def notebook_loop():
                     print(Fore.RED + title_to_rewrite + MESSAGES['error_not_found'] + Style.RESET_ALL)
             case 'delete_note' | '3':
                 title_to_delete = input(Fore.GREEN + MESSAGES['title_to_delete'] + Style.RESET_ALL)
-                notebook.delete_note(title_to_delete)
+                print(notebook.delete_note(title_to_delete))
                 to_json_note(notebook, 'notebook.json')
                 print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
             case 'search_note' | '4':
@@ -88,7 +88,7 @@ def notebook_loop():
                 if title_to_tag in notebook.data:
                     note = notebook.data[title_to_tag]
                     tag_new = input(Fore.GREEN + MESSAGES['tags_add'] + Style.RESET_ALL).split()
-                    note.add_tag(tag_new)
+                    print(note.add_tag(tag_new))
                     notebook.add_note(note)
                     to_json_note(notebook, 'notebook.json')
                     print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
@@ -99,7 +99,7 @@ def notebook_loop():
                 if title_to_untag in notebook.data:
                     note = notebook.data[title_to_untag]
                     tag_to_delete = input(Fore.GREEN + MESSAGES['tag_to_delete'] + Style.RESET_ALL)
-                    note.delete_tag(tag_to_delete)
+                    print(note.delete_tag(tag_to_delete))
                     notebook.add_note(note)
                     to_json_note(notebook, 'notebook.json')
                     print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
@@ -151,26 +151,25 @@ def addressbook_loop():
                 birthday_add = input(Fore.GREEN + MESSAGES['birthday_add'] + Style.RESET_ALL)
                 email_add = input(Fore.GREEN + MESSAGES['email_add'] + Style.RESET_ALL)
                 contact = Contact(name_add, phone_add, birthday_add, email_add)
-                addressbook.contact_add(contact)
+                if contact.name is None:
+                    continue
+                print(addressbook.contact_add(contact))
                 print(contact)
-                to_json_addressbook(addressbook, 'address_book.json')
-                print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
+                to_json_addressbook(addressbook, 'addressbook.json')
             case 'name_to_rewrite' | '2':
                 name_to_rewrite = input(Fore.GREEN + MESSAGES['name_to_rewrite'] + Style.RESET_ALL)
                 if name_to_rewrite in addressbook.data:
                     contact = addressbook.data[name_to_rewrite]
                     new_name = input(Fore.GREEN + MESSAGES['name_add'] + Style.RESET_ALL)
-                    contact.edit_name(name_to_rewrite, new_name)
+                    print(contact.edit_name(name_to_rewrite, new_name))
                     addressbook.contact_add(contact)
-                    to_json_addressbook(addressbook, 'address_book.json')
-                    print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
+                    to_json_addressbook(addressbook, 'addressbook.json')
                 else:
                     print(Fore.RED + name_to_rewrite + MESSAGES['error_not_found'] + Style.RESET_ALL)
             case 'delete_contact' | '3':
                 name_to_delete = input(Fore.GREEN + MESSAGES['contact_to_delete'] + Style.RESET_ALL)
-                addressbook.contact_delete(name_to_delete)
-                to_json_addressbook(addressbook, 'address_book.json')
-                print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
+                print(addressbook.contact_delete(name_to_delete))
+                to_json_addressbook(addressbook, 'addressbook.json')
             case 'search_contact' | '4':
                 pattern_search = input(Fore.GREEN + MESSAGES['pattern_search'] + Style.RESET_ALL)
                 result = addressbook.search(pattern_search)
@@ -180,10 +179,9 @@ def addressbook_loop():
                 if name_to_add_phone in addressbook.data:
                     contact = addressbook.data[name_to_add_phone]
                     new_phone = input(Fore.GREEN + MESSAGES['phone_add'] + Style.RESET_ALL)
-                    contact.add_phone(new_phone)
+                    print(contact.add_phone(new_phone))
                     addressbook.contact_add(contact)
-                    to_json_addressbook(addressbook, 'address_book.json')
-                    print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
+                    to_json_addressbook(addressbook, 'addressbook.json')
                 else:
                     print(Fore.RED + name_to_add_phone + MESSAGES['error_not_found'] + Style.RESET_ALL)
             case 'delete_phone' | '6':
@@ -191,9 +189,9 @@ def addressbook_loop():
                 if name_to_delete_phone in addressbook.data:
                     contact = addressbook.data[name_to_delete_phone]
                     phone_to_delete = input(Fore.GREEN + MESSAGES['phone_to_delete'] + Style.RESET_ALL)
-                    contact.delete_phone(phone_to_delete)
+                    print(contact.delete_phone(phone_to_delete))
                     addressbook.contact_add(contact)
-                    to_json_addressbook(addressbook, 'address_book.json')
+                    to_json_addressbook(addressbook, 'addressbook.json')
                     print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
                 else:
                     print(Fore.RED + name_to_delete_phone + MESSAGES['error_not_found'] + Style.RESET_ALL)
@@ -201,11 +199,14 @@ def addressbook_loop():
                 name_to_edit_phone = input(Fore.GREEN + MESSAGES['name_to_edit_phone'] + Style.RESET_ALL)
                 if name_to_edit_phone in addressbook.data:
                     contact = addressbook.data[name_to_edit_phone]
+                    if not contact.phone:
+                        print(Fore.RED + MESSAGES['error_phone'] + Style.RESET_ALL)
+                        continue
                     old_phone = input(Fore.GREEN + MESSAGES['old_phone'] + Style.RESET_ALL)
                     new_phone = input(Fore.GREEN + MESSAGES['new_phone'] + Style.RESET_ALL)
-                    contact.edit_phone(old_phone, new_phone)
+                    print(contact.edit_phone(old_phone, new_phone))
                     addressbook.contact_add(contact)
-                    to_json_addressbook(addressbook, 'address_book.json')
+                    to_json_addressbook(addressbook, 'addressbook.json')
                     print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
                 else:
                     print(Fore.RED + name_to_edit_phone + MESSAGES['error_not_found'] + Style.RESET_ALL)
@@ -213,10 +214,10 @@ def addressbook_loop():
                 name_to_add_birthday = input(Fore.GREEN + MESSAGES['name_to_add_birthday'] + Style.RESET_ALL)
                 if name_to_add_birthday in addressbook.data:
                     contact = addressbook.data[name_to_add_birthday]
-                    new_birthday = input(Fore.GREEN + MESSAGES['new_birthday'] + Style.RESET_ALL)
-                    contact.add_birthday(new_birthday)
+                    new_birthday = input(Fore.GREEN + MESSAGES['birthday_add'] + Style.RESET_ALL)
+                    print(contact.add_birthday(new_birthday))
                     addressbook.contact_add(contact)
-                    to_json_addressbook(addressbook, 'address_book.json')
+                    to_json_addressbook(addressbook, 'addressbook.json')
                     print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
                 else:
                     print(Fore.RED + name_to_add_birthday + MESSAGES['error_not_found'] + Style.RESET_ALL)
@@ -225,9 +226,9 @@ def addressbook_loop():
                 if name_to_delete_birthday in addressbook.data:
                     contact = addressbook.data[name_to_delete_birthday]
                     birthday_to_delete = input(Fore.GREEN + MESSAGES['birthday_to_delete'] + Style.RESET_ALL)
-                    contact.delete_birthday(birthday_to_delete)
+                    print(contact.delete_birthday(birthday_to_delete))
                     addressbook.contact_add(contact)
-                    to_json_addressbook(addressbook, 'address_book.json')
+                    to_json_addressbook(addressbook, 'addressbook.json')
                     print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
                 else:
                     print(Fore.RED + name_to_delete_birthday + MESSAGES['error_not_found'] + Style.RESET_ALL)
@@ -235,10 +236,10 @@ def addressbook_loop():
                 name_to_edit_birthday = input(Fore.GREEN + MESSAGES['name_to_edit_birthday'] + Style.RESET_ALL)
                 if name_to_edit_birthday in addressbook.data:
                     contact = addressbook.data[name_to_edit_birthday]
-                    new_birthday = input(Fore.GREEN + MESSAGES['new_birthday'] + Style.RESET_ALL)
-                    contact.edit_birthday(new_birthday)
+                    new_birthday = input(Fore.GREEN + MESSAGES['birthday_add'] + Style.RESET_ALL)
+                    print(contact.edit_birthday(new_birthday))
                     addressbook.contact_add(contact)
-                    to_json_addressbook(addressbook, 'address_book.json')
+                    to_json_addressbook(addressbook, 'addressbook.json')
                     print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
                 else:
                     print(Fore.RED + name_to_edit_birthday + MESSAGES['error_not_found'] + Style.RESET_ALL)
@@ -246,10 +247,10 @@ def addressbook_loop():
                 name_to_add_email = input(Fore.GREEN + MESSAGES['name_to_add_email'] + Style.RESET_ALL)
                 if name_to_add_email in addressbook.data:
                     contact = addressbook.data[name_to_add_email]
-                    new_email = input(Fore.GREEN + MESSAGES['new_email'] + Style.RESET_ALL)
-                    contact.add_email(new_email)
+                    new_email = input(Fore.GREEN + MESSAGES['email_add'] + Style.RESET_ALL)
+                    print(contact.add_email(new_email))
                     addressbook.contact_add(contact)
-                    to_json_addressbook(addressbook, 'address_book.json')
+                    to_json_addressbook(addressbook, 'addressbook.json')
                     print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
                 else:
                     print(Fore.RED + name_to_add_email + MESSAGES['error_not_found'] + Style.RESET_ALL)
@@ -258,9 +259,9 @@ def addressbook_loop():
                 if name_to_delete_email in addressbook.data:
                     contact = addressbook.data[name_to_delete_email]
                     email_to_delete = input(Fore.GREEN + MESSAGES['email_to_delete'] + Style.RESET_ALL)
-                    contact.delete_email(email_to_delete)
+                    print(contact.delete_email(email_to_delete))
                     addressbook.contact_add(contact)
-                    to_json_addressbook(addressbook, 'address_book.json')
+                    to_json_addressbook(addressbook, 'addressbook.json')
                     print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
                 else:
                     print(Fore.RED + name_to_delete_email + MESSAGES['error_not_found'] + Style.RESET_ALL)
@@ -268,10 +269,10 @@ def addressbook_loop():
                 name_to_edit_email = input(Fore.GREEN + MESSAGES['name_to_edit_email'] + Style.RESET_ALL)
                 if name_to_edit_email in addressbook.data:
                     contact = addressbook.data[name_to_edit_email]
-                    new_email = input(Fore.GREEN + MESSAGES['new_email'] + Style.RESET_ALL)
-                    contact.edit_email(new_email)
+                    new_email = input(Fore.GREEN + MESSAGES['email_add'] + Style.RESET_ALL)
+                    print(contact.edit_email(new_email))
                     addressbook.contact_add(contact)
-                    to_json_addressbook(addressbook, 'address_book.json')
+                    to_json_addressbook(addressbook, 'addressbook.json')
                     print(Fore.BLUE + MESSAGES['success'] + Style.RESET_ALL)
                 else:
                     print(Fore.RED + name_to_edit_email + MESSAGES['error_not_found'] + Style.RESET_ALL)
@@ -280,11 +281,11 @@ def addressbook_loop():
             case 'help' | '15':
                 print(Fore.BLUE + MESSAGES['addressbook_help'] + Style.RESET_ALL)
             case 'exit_address_book' | '16':
-                to_json_addressbook(addressbook, 'address_book.json')
+                to_json_addressbook(addressbook, 'addressbook.json')
                 print(Fore.BLUE + MESSAGES['exit_addressbook'] + Style.RESET_ALL)
                 break
             case 'exit_program' | '17':
-                to_json_addressbook(addressbook, 'address_book.json')
+                to_json_addressbook(addressbook, 'addressbook.json')
                 print(exit_program())
             case _:
                 print(Fore.RED + MESSAGES['error_command'] + Style.RESET_ALL)

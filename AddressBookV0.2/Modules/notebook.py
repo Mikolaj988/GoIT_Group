@@ -4,7 +4,7 @@ from collections import UserDict
 class Note:
     def __init__(self, title, text=None, tags=None):
         self.title = title
-        self.tags = [tags] if tags else []
+        self.tags = tags if isinstance(tags, list) else []
         self.text = text
 
     def add_tag(self, tag):
@@ -14,7 +14,7 @@ class Note:
             self.tags.append(tag)
 
     def delete_tag(self, tag):
-        self.tags = [i for i in self.tags if str(i) != tag]
+        self.tags = [i for i in self.tags if i != tag]
         if not self.tags:
             print(f"All tags have been deleted.")
 

@@ -3,21 +3,34 @@
         "title": "Example Note 4",
         "text": "This is an example note 4.",
         "tags": [
-            "banana, ice_cream, cookie"
+            "banana",
+            "ice_cream",
+            "cookie"
         ]
     },
     "Example Note 2": {
         "title": "Example Note 2",
         "text": "This is an example note. 2",
         "tags": [
-            "salami, apple"
+            "salami",
+            "apple"
         ]
     },
     "Example Note 1": {
         "title": "Example Note 1",
         "text": "This is an example note 1.",
         "tags": [
-            "neils, scotch"
+            "neils",
+            "scotch"
+        ]
+    },
+    "qwe": {
+        "title": "qwe",
+        "text": "asd asd",
+        "tags": [
+            "asd",
+            "1",
+            "rty"
         ]
     }
 }

@@ -73,7 +73,7 @@ MESSAGES = {
 
     'addressbook_help': f'Welcome to the Address Book Help:\n'
                         f'1. Add_Contact: Add a new contact.\n'
-                        f'2. Edit_Contact: Edit an existing contact.\n'
+                        f'2. Name_to_rewrite: Edit an existing contact.\n'
                         f'3. Delete_Contact: Delete a contact.\n'
                         f'4. Search_Contact: Search for a contact by name, phone, birthday, or email.\n'
                         f'5. Add_Phone: Add a phone number to a contact.\n'
@@ -85,9 +85,8 @@ MESSAGES = {
                         f'11. Add_Email: Add an email to a contact.\n'
                         f'12. Delete_Email: Delete an email from a contact.\n'
                         f'13. Edit_Email: Edit an email in a contact.\n'
-                        f'14. Days_To_Birthday: Display days left to the next birthday for a contact.\n'
-                        f'15. Display_All: Display all contacts.\n'
-                        f'16. Help: Show this help message.\n'
+                        f'14. Display_All: Display all contacts.\n'
+                        f'15. Help: Show this help message.\n'
                         f'17. Exit_Address_Book: Exit the address book.\n'
                         f'To proceed, make your choice from the following commands.',
 

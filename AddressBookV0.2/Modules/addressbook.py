@@ -13,7 +13,7 @@ class Contact:
             self.name = None
         else:
             self.name = name
-            self.phone = [phone] if phone else []
+            self.phone = phone if isinstance(phone, list) else []
             self.birthday = birthday
             self.email = email
             # print(f'Contact {self.name} was CREATED.\n')

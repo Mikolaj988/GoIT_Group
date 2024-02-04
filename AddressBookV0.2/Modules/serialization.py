@@ -8,7 +8,7 @@ def to_json_note(notebook, filename):
         note.title: {
             "title": note.title,
             "text": note.text,
-            "tags": note.tags,
+            "tags": list(map(str, note.tags)),
         }
         for note in notebook.data.values()
     }
@@ -24,8 +24,8 @@ def from_json_note(filename):
         for title, note_data in data.items():
             note = Note(
                 title,
-                note_data.get("text", ""),
-                ', '.join(map(str, note_data.get('tags', []))),
+                note_data.get('text', ''),
+                note_data.get('tags'),
             )
             notes_dict[title] = note
 
@@ -36,7 +36,7 @@ def to_json_addressbook(addressbook, filename):
     addressbook_data = {
         contact.name: {
             "name": contact.name,
-            "phone": contact.phone,
+            "phone": list(map(str, contact.phone)),
             "birthday": contact.birthday,
             "email": contact.email,
         }

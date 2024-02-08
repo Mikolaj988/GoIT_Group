@@ -1,7 +1,7 @@
 import sys
 from messages import MESSAGES
-from addressbook import Contact, AddressBook
-from notebook import Note, NoteBook
+from addressbook import Contact
+from notebook import Note
 from serialization import to_json_note, from_json_note, to_json_addressbook, from_json_addressbook
 from colorama import Fore, Style, init
 

@@ -18,5 +18,11 @@
         ],
         "birthday": "05.05.1988",
         "email": "krzysssff@gk.pl"
+    },
+    "Grzegorz B": {
+        "name": "Grzegorz B",
+        "phone": [],
+        "birthday": "01.01.2000",
+        "email": "b.b@gmail.com"
     }
 }
